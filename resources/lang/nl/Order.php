@@ -36,7 +36,7 @@ return array (
   'quantity' => 'Quantity',
   'recent_orders' => 'Recente Bestellingen',
   'reference' => 'Reference',
-  'refund/cancel' => 'Refund / Cancel',
+  'refund/cancel' => 'Cancel',
   'registered' => 'registered',
   'search_placeholder' => 'Search Bestellingen..',
   'status' => 'Status',

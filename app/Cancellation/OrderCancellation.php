@@ -46,8 +46,15 @@ class OrderCancellation
      */
     public function cancel(): void
     {
+        $orderAwaitingPayment = false;
+        if ($this->order->order_status_id == config('attendize.order.awaiting_payment')) {
+            $orderAwaitingPayment = true;
+            $orderCancel = OrderCancel::make($this->order, $this->attendees);
+            $orderCancel->cancel();
+        }
+
         // If order can do a refund then refund first
-        if ($this->order->canRefund()) {
+        if ($this->order->canRefund() && !$orderAwaitingPayment) {
             $orderRefund = OrderRefund::make($this->order, $this->attendees);
             $orderRefund->refund();
             $this->orderRefund = $orderRefund;
