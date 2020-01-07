@@ -56,7 +56,7 @@
     </div>
 </div>
 <div class="col-md-3">
-   {!! Form::open(array('url' => route('showEventAttendees', ['event_id'=>$event->id,'sort_by'=>$sort_by]), 'method' => 'get')) !!}
+   {!! Form::open(array('url' => route('showEventAttendees', ['event_id'=>$event->id, 'sort_by'=>$sort_by]), 'method' => 'get')) !!}
     <div class="input-group">
         <input name="q" value="{{$q or ''}}" placeholder="@lang("Attendee.search_attendees")" type="text" class="form-control" />
         <span class="input-group-btn">
@@ -100,7 +100,7 @@
                             <td>{{{$attendee->full_name}}}</td>
                             <td>
                                 <a data-modal-id="MessageAttendee" href="javascript:void(0);" class="loadModal"
-                                    data-href="{{route('showMessageAttendee', ['attendee_id'=>$attendee->id])}}"
+                                    data-href="{{route('showMessageAttendee', ['event_id' => $event->id, 'attendee_id'=>$attendee->id])}}"
                                     > {{$attendee->email}}</a>
                             </td>
                             <td>
@@ -119,14 +119,14 @@
                                         <li><a
                                             data-modal-id="MessageAttendee"
                                             href="javascript:void(0);"
-                                            data-href="{{route('showMessageAttendee', ['attendee_id'=>$attendee->id])}}"
+                                            data-href="{{route('showMessageAttendee', ['event_id' => $event->id, 'attendee_id'=>$attendee->id])}}"
                                             class="loadModal"
                                             > @lang("basic.message")</a></li>
                                         @endif
                                         <li><a
                                             data-modal-id="ResendTicketToAttendee"
                                             href="javascript:void(0);"
-                                            data-href="{{route('showResendTicketToAttendee', ['attendee_id'=>$attendee->id])}}"
+                                            data-href="{{route('showResendTicketToAttendee', ['event_id' => $event->id, 'attendee_id'=>$attendee->id])}}"
                                             class="loadModal"
                                             > @lang("ManageEvent.resend_ticket")</a></li>
                                         <li><a
