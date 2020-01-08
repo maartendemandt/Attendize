@@ -4,6 +4,8 @@ use App\Cancellation\OrderCancellation;
 use App\Jobs\GenerateTicket;
 use App\Jobs\SendAttendeeInvite;
 use App\Jobs\SendAttendeeTicket;
+use App\Jobs\SendAttendeeCancelled;
+use App\Jobs\SendAttendeeRefunded;
 use App\Jobs\SendMessageToAttendees;
 use App\Models\Attendee;
 use App\Models\Event;
@@ -445,31 +447,17 @@ class EventAttendeesController extends MyBaseController
 
         $attendee = Attendee::scope()->findOrFail($attendee_id);
 
-        $data = [
-            'attendee'        => $attendee,
-            'message_content' => $request->get('message'),
-            'subject'         => $request->get('subject'),
-            'event'           => $attendee->event,
-            'email_logo'      => $attendee->event->organiser->full_logo_path,
-        ];
+        $message = Message::createNew();
+        $message->message = $request->get('message');
+        $message->subject = $request->get('subject');
+        $message->recipients = [$attendee->ticket_id];
+        $message->event_id = $event_id;
+        $message->save();
 
-        //@todo move this to the SendAttendeeMessage Job
-        Mail::send('Emails.messageReceived', $data, function ($message) use ($attendee, $data) {
-            $message->to($attendee->email, $attendee->full_name)
-                ->from(config('attendize.outgoing_email_noreply'), $attendee->event->organiser->name)
-                ->replyTo($attendee->event->organiser->email, $attendee->event->organiser->name)
-                ->subject($data['subject']);
-        });
-
-        /* Could bcc in the above? */
-        if ($request->get('send_copy') == '1') {
-            Mail::send('Emails.messageReceived', $data, function ($message) use ($attendee, $data) {
-                $message->to($attendee->event->organiser->email, $attendee->event->organiser->name)
-                    ->from(config('attendize.outgoing_email_noreply'), $attendee->event->organiser->name)
-                    ->replyTo($attendee->event->organiser->email, $attendee->event->organiser->name)
-                    ->subject($data['subject'] . trans("Email.organiser_copy"));
-            });
-        }
+        /*
+         * Queue the emails
+         */
+        $this->dispatch(new SendMessageToAttendees($message, ($request->get('send_copy') == '1') ? true : false));
 
         return response()->json([
             'status'  => 'success',
@@ -745,31 +733,10 @@ class EventAttendeesController extends MyBaseController
         }
 
         if ($request->get('notify_attendee') == '1') {
-            try {
-                Mail::send('Emails.notifyCancelledAttendee', $data, function ($message) use ($attendee) {
-                    $message->to($attendee->email, $attendee->full_name)
-                        ->from(config('attendize.outgoing_email_noreply'), $attendee->event->organiser->name)
-                        ->replyTo($attendee->event->organiser->email, $attendee->event->organiser->name)
-                        ->subject(trans("Email.your_ticket_cancelled"));
-                });
-            } catch (\Exception $e) {
-                Log::error($e);
-                // We do not want to kill the flow if the email fails
-            }
+            $this->dispatch(new SendAttendeeCancelled($attendee));
         }
 
-        try {
-            // Let the user know that they have received a refund.
-            Mail::send('Emails.notifyRefundedAttendee', $data, function ($message) use ($attendee) {
-                $message->to($attendee->email, $attendee->full_name)
-                    ->from(config('attendize.outgoing_email_noreply'), $attendee->event->organiser->name)
-                    ->replyTo($attendee->event->organiser->email, $attendee->event->organiser->name)
-                    ->subject(trans("Email.refund_from_name", ["name"=>$attendee->event->organiser->name]));
-            });
-        } catch (\Exception $e) {
-            Log::error($e);
-            // We do not want to kill the flow if the email fails
-        }
+        $this->dispatch(new SendAttendeeRefunded($attendee));
 
         session()->flash('message', trans("Controllers.successfully_cancelled_attendee"));
 

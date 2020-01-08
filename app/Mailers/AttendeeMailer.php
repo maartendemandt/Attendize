@@ -15,15 +15,17 @@ class AttendeeMailer extends Mailer
     public function sendAttendeeTicket($attendee)
     {
 
-        Log::info("Sending ticket to: " . $attendee->email);
+        Log::info("Sending attendee ticket to: " . $attendee->email);
 
         $data = [
             'attendee' => $attendee,
         ];
 
-        Mail::send('Mailers.TicketMailer.SendAttendeeTicket', $data, function ($message) use ($attendee) {
-            $message->to($attendee->email);
-            $message->subject(trans("Email.your_ticket_for_event", ["event" => $attendee->order->event->title]));
+        Mail::send('Mailers.AttendeeMailer.AttendeeTicket', $data, function ($message) use ($attendee) {
+            $message->to($attendee->email)
+                ->from(config('attendize.outgoing_email_noreply'), $attendee->event->organiser->name)
+                ->replyTo($attendee->event->organiser->email, $attendee->event->organiser->name)
+                ->subject(trans("Email.your_ticket_for_event", ["event" => $attendee->order->event->title]));
 
             $file_name = $attendee->reference;
             $file_path = public_path(config('attendize.event_pdf_tickets_path')) . '/' . $file_name . '.pdf';
@@ -38,7 +40,7 @@ class AttendeeMailer extends Mailer
      *
      * @param Message $message_object
      */
-    public function sendMessageToAttendees(Message $message_object)
+    public function sendMessageToAttendees(Message $message_object, $sent_copy)
     {
         $event = $message_object->event;
 
@@ -52,6 +54,8 @@ class AttendeeMailer extends Mailer
             if ($attendee->is_cancelled) {
                continue;
             }
+
+            Log::info("Sending attendee message to: " . $attendee->email);
             
             $data = [
                 'attendee'        => $attendee,
@@ -61,11 +65,15 @@ class AttendeeMailer extends Mailer
                 'email_logo'      => $attendee->event->organiser->full_logo_path,
             ];
 
-            Mail::send('Emails.messageReceived', $data, function ($message) use ($attendee, $data) {
+            Mail::send('Mailers.AttendeeMailer.MessageToAttendees', $data, function ($message) use ($attendee, $data, $sent_copy) {
                 $message->to($attendee->email, $attendee->full_name)
                     ->from(config('attendize.outgoing_email_noreply'), $attendee->event->organiser->name)
                     ->replyTo($attendee->event->organiser->email, $attendee->event->organiser->name)
                     ->subject($data['subject']);
+
+                if($sent_copy) {
+                    $message->bcc($attendee->event->organiser->email); 
+                }
             });
         }
 
@@ -77,20 +85,57 @@ class AttendeeMailer extends Mailer
     public function SendAttendeeInvite($attendee)
     {
 
-        Log::info("Sending invite to: " . $attendee->email);
+        Log::info("Sending attendee invite to: " . $attendee->email);
 
         $data = [
             'attendee' => $attendee,
         ];
 
-        Mail::send('Mailers.TicketMailer.SendAttendeeInvite', $data, function ($message) use ($attendee) {
-            $message->to($attendee->email);
-            $message->subject(trans("Email.your_ticket_for_event", ["event" => $attendee->order->event->title]));
+        Mail::send('Mailers.AttendeeMailer.AttendeeInvite', $data, function ($message) use ($attendee) {
+            $message->to($attendee->email)
+                ->from(config('attendize.outgoing_email_noreply'), $attendee->event->organiser->name)
+                ->replyTo($attendee->event->organiser->email, $attendee->event->organiser->name)        
+                ->subject(trans("Email.your_ticket_for_event", ["event" => $attendee->order->event->title]));
 
             $file_name = $attendee->getReferenceAttribute();
             $file_path = public_path(config('attendize.event_pdf_tickets_path')) . '/' . $file_name . '.pdf';
 
             $message->attach($file_path);
+        });
+
+    }
+
+    public function SendAttendeeCancelled($attendee)
+    {
+        Log::info("Sending attendee cancelled to: " . $attendee->email);
+
+        $data = [
+            'attendee' => $attendee,
+        ];
+
+        Mail::send('Mailers.AttendeeMailer.AttendeeCancelled', $data, function ($message) use ($attendee) {
+            $message->to($attendee->email)
+                ->from(config('attendize.outgoing_email_noreply'), $attendee->event->organiser->name)
+                ->replyTo($attendee->event->organiser->email, $attendee->event->organiser->name)        
+                ->subject(trans("Email.your_ticket_cancelled", ["event" => $attendee->order->event->title]));
+        });
+
+    }
+
+    public function SendAttendeeRefunded($attendee)
+    {
+
+        Log::info("Sending refunded to: " . $attendee->email);
+
+        $data = [
+            'attendee' => $attendee,
+        ];
+
+        Mail::send('Mailers.AttendeeMailer.AttendeeRefunded', $data, function ($message) use ($attendee) {
+            $message->to($attendee->email)
+                ->from(config('attendize.outgoing_email_noreply'), $attendee->event->organiser->name)
+                ->replyTo($attendee->event->organiser->email, $attendee->event->organiser->name)        
+                ->subject(trans("Email.your_ticket_cancelled", ["event" => $attendee->order->event->title]));
         });
 
     }

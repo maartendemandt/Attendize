@@ -61,8 +61,8 @@ class UserSignupController extends Controller
         $user = User::create($user_data);
 
         if ($is_attendize) {
-            // TODO: Do this async?
-            Mail::send('Emails.ConfirmEmail',
+            // TODO: Move this to Mialer
+            Mail::send('Mailers.UserMailer.ConfirmEmail',
                 ['first_name' => $user->first_name, 'confirmation_code' => $user->confirmation_code],
                 function ($message) use ($request) {
                     $message->to($request->get('email'), $request->get('first_name'))
