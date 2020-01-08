@@ -361,6 +361,7 @@ class EventCheckoutController extends Controller
 
         $viewData = ['event' => $event,
                      'tickets' => $order_session['tickets'],
+                     'request_data' => $order_session['request_data'][0],
                      'order_total' => $order_total,
                      'orderService' => $orderService,
                      'order_requires_payment'  => PaymentUtils::requiresPayment($order_total),
@@ -502,12 +503,12 @@ class EventCheckoutController extends Controller
         $gateway->extractRequestParameters($request);
         $response = $gateway->completeTransaction($ticket_order['transaction_data'][0]);
 
-
         if ($response->isSuccessful()) {
             session()->push('ticket_order_' . $event_id . '.transaction_id', $response->getTransactionReference());
             return $this->completeOrder($event_id, false);
         } else {
-            session()->flash('message', $response->getMessage());
+            // TODO: This message is not very user friendly, so I would suggest removing it ?
+            // session()->flash('message', $response->getMessage());
             return response()->redirectToRoute('showEventPayment', [
                 'event_id'          => $event_id,
                 'is_payment_failed' => 1,

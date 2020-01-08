@@ -19,6 +19,12 @@ return [
             'driver'  => 'Stripe',
             'options' => [],
         ],
+        'mollie' => [
+            'driver'  => 'Mollie',
+            'options' => [
+                'apiKey' => env('MOLLIE_API_KEY', ''),
+            ],
+        ],
     ],
 
 ];
