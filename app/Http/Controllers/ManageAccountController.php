@@ -197,8 +197,9 @@ class ManageAccountController extends MyBaseController
             'temp_password' => $temp_password,
             'inviter'       => Auth::user(),
         ];
-
-        Mail::send('Emails.inviteUser', $data, static function (Mailable $message) use ($data) {
+        
+        // TODO: move this to Mailer
+        Mail::send('Mailers.UserMailer.InviteUser', $data, static function (Mailable $message) use ($data) {
             $message->to($data['user']->email)
                 ->subject(trans('Email.invite_user', [
                     'name' => $data['inviter']->first_name . ' ' . $data['inviter']->last_name,

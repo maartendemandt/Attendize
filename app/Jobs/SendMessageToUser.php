@@ -2,17 +2,17 @@
 
 namespace App\Jobs;
 
-use App\Mailers\AttendeeMailer;
+use App\Mailers\UserMailer;
 use App\Models\Message;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class SendMessageToAttendees extends Job implements ShouldQueue
+class SendMessageToUser extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 
-    public $attendeeMessage;
+    public $data;
     public $sent_copy;
 
     /**
@@ -20,9 +20,9 @@ class SendMessageToAttendees extends Job implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Message $attendeeMessage, $sent_copy = false)
+    public function __construct($data, $sent_copy = false)
     {
-        $this->attendeeMessage = $attendeeMessage;
+        $this->data = $data;
         $this->sent_copy = $sent_copy;
     }
 
@@ -31,8 +31,8 @@ class SendMessageToAttendees extends Job implements ShouldQueue
      *
      * @return void
      */
-    public function handle(AttendeeMailer $attendeeMailer)
+    public function handle(UserMailer $userMailer)
     {
-        $attendeeMailer->sendMessageToAttendees($this->attendeeMessage, $this->sent_copy);
+        $userMailer->sendMessageToUser($this->data, $this->sent_copy);
     }
 }

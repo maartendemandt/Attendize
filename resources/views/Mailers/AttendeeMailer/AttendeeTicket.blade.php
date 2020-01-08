@@ -1,4 +1,4 @@
-@extends('en.Emails.Layouts.Master')
+@extends('Mailers.Layouts.Master')
 
 @section('message_content')
 Hello {{$attendee->first_name}},<br><br>

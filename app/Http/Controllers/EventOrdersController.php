@@ -10,6 +10,7 @@ use App\Services\Order as OrderService;
 use DB;
 use Excel;
 use Illuminate\Database\Eloquent\Collection;
+use App\Jobs\SendMessageToUser;
 use Illuminate\Http\Request;
 use Log;
 use Mail;
@@ -349,6 +350,10 @@ class EventOrdersController extends MyBaseController
 
         $order = Order::scope()->findOrFail($order_id);
 
+        /*
+         * Queue the emails
+         */
+
         $data = [
             'order'           => $order,
             'message_content' => $request->get('message'),
@@ -357,22 +362,8 @@ class EventOrdersController extends MyBaseController
             'email_logo'      => $order->event->organiser->full_logo_path,
         ];
 
-        Mail::send('Emails.messageReceived', $data, function ($message) use ($order, $data) {
-            $message->to($order->email, $order->full_name)
-                ->from(config('attendize.outgoing_email_noreply'), $order->event->organiser->name)
-                ->replyTo($order->event->organiser->email, $order->event->organiser->name)
-                ->subject($data['subject']);
-        });
-
-        /* Send a copy to the Organiser with a different subject */
-        if ($request->get('send_copy') == '1') {
-            Mail::send('Emails.messageReceived', $data, function ($message) use ($order, $data) {
-                $message->to($order->event->organiser->email)
-                    ->from(config('attendize.outgoing_email_noreply'), $order->event->organiser->name)
-                    ->replyTo($order->event->organiser->email, $order->event->organiser->name)
-                    ->subject($data['subject'] . trans("Email.organiser_copy"));
-            });
-        }
+        // TODO: move this to more appropiate mailer
+        $this->dispatch(new SendMessageToUser($data, ($request->get('send_copy') == '1') ? true : false));
 
         return response()->json([
             'status'  => 'success',

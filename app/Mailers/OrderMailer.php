@@ -14,12 +14,14 @@ class OrderMailer
         $orderService = new OrderService($order->amount, $order->organiser_booking_fee, $order->event);
         $orderService->calculateFinalCosts();
 
+        Log::info("Sending order notification to: " . $order->email);
+
         $data = [
             'order' => $order,
             'orderService' => $orderService
         ];
 
-        Mail::send('Emails.OrderNotification', $data, function ($message) use ($order) {
+        Mail::send('Mailers.OrderMailer.OrderNotification', $data, function ($message) use ($order) {
             $message->to($order->account->email);
             $message->subject(trans("Controllers.new_order_received", ["event"=> $order->event->title, "order" => $order->order_reference]));
         });
@@ -31,7 +33,8 @@ class OrderMailer
         $orderService = new OrderService($order->amount, $order->organiser_booking_fee, $order->event);
         $orderService->calculateFinalCosts();
 
-        Log::info("Sending ticket to: " . $order->email);
+        Log::info("Sending order ticket to: " . $order->email);
+        
         $data = [
             'order' => $order,
             'orderService' => $orderService
@@ -44,7 +47,7 @@ class OrderMailer
             return;
         }
 
-        Mail::send('Mailers.TicketMailer.SendOrderTickets', $data, function ($message) use ($order, $file_path) {
+        Mail::send('Mailers.OrderMailer.OrderTickets', $data, function ($message) use ($order, $file_path) {
             $message->to($order->email);
             $message->subject(trans("Controllers.tickets_for_event", ["event" => $order->event->title]));
             $message->attach($file_path);
