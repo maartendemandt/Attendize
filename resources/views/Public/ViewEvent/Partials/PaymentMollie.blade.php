@@ -1,5 +1,5 @@
 <form class="online_payment ajax" action="<?php echo route('postCreateOrder', ['event_id' => $event->id]); ?>" method="post">      
-    <div class="well">
+    <div class="well" style="border-radius: 5px">
         <div class="row">
             <div class="col-sm-6 col-xs-6">
                 <p>
@@ -13,8 +13,8 @@
                     {{ $request_data['order_last_name'] }}
                 </p>
             </div>
-            <div class="col-sm-12 col-xs-12 mt-4">
-                <p>
+            <div class="col-sm-12 col-xs-12" style="margin-top: 10px;">
+                <p style="margin-bottom:0px">
                     <b>@lang("Public_ViewEvent.email")</b><br> 
                     {{ $request_data['order_email'] }}
                 </p>

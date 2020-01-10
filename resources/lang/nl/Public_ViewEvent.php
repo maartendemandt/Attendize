@@ -2,6 +2,7 @@
 
 return [
   'Contact' => 'Contact',
+  'CONTACT' => 'CONTACT',
   'DETAILS' => 'DETAILS',
   'Facebook' => 'Facebook',
   'LOCATION' => 'LOCATIE',

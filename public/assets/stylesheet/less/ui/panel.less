@@ -6,13 +6,14 @@
 .panel {
     /* max-width: 100%;  required by text ellipsis */
     position: relative;
-    border-width: 1px;
+    border-width: 0px;
     border-color: @border-color;
-    border-bottom-width: 2px;
+    border-bottom-width: 0px;
     border-bottom-color: darken(@border-color, 5%);
     border-radius: @border-radius;
     -webkit-box-shadow: none;
     box-shadow: none;
+    overflow: hidden;
 }
 .panel > .panel-collapse.pull {
     display: none;
@@ -128,15 +129,15 @@
  *   - reset
  -------------------------------*/
 .panel-heading {
-    padding: 0px 15px;
+    padding: 0px 18px;
     border-top-right-radius: @border-radius;
     border-top-left-radius: @border-radius;
 
     /* experiment */
-    margin-left: -1px;
-    margin-right: -1px;
-    margin-top: -1px;
-    border: 1px solid transparent;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    border: 0px solid transparent;
 }
 .panel-heading > .panel-title,
 .panel-heading > .panel-toolbar {
@@ -151,8 +152,8 @@
     max-width: 10px;
 }
 .panel-heading > .panel-title {
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 15px;
+    font-weight: 500;
 }
 .panel-heading > .panel-title > .icon { 
     margin-right: 5px; 
@@ -422,6 +423,11 @@
     border-top: 1px solid @border-color;
     border-bottom-right-radius: @border-radius;
     border-bottom-left-radius: @border-radius;
+
+    h5 {
+        font-size: 15px;
+        font-weight: 600;
+    }
 }
 .panel-body .panel-footer {
     margin: 15px -15px -15px -15px;

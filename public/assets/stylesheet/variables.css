@@ -1,0 +1,70 @@
+@font-face {
+  font-family: 'Public Sans';
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/publicsans/v2/ijwAs572Xtc6ZYQws9YVwnNDZpDyNjGolS673toPgDcqd14.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Public Sans';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/publicsans/v2/ijwAs572Xtc6ZYQws9YVwnNDZpDyNjGolS673tpRgDcqd14.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Public Sans';
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/publicsans/v2/ijwAs572Xtc6ZYQws9YVwnNDZpDyNjGolS673tpjgDcqd14.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Public Sans';
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/publicsans/v2/ijwAs572Xtc6ZYQws9YVwnNDZpDyNjGolS673tqPhzcqd14.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Public Sans';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/publicsans/v2/ijwAs572Xtc6ZYQws9YVwnNDZpDyNjGolS673tq2hzcqd14.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Public Sans';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/publicsans/v2/ijwGs572Xtc6ZYQws9YVwllKVG8qX1oyOymuSJmJxAct.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Public Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/publicsans/v2/ijwGs572Xtc6ZYQws9YVwllKVG8qX1oyOymuFpmJxAct.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Public Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/publicsans/v2/ijwGs572Xtc6ZYQws9YVwllKVG8qX1oyOymuJJmJxAct.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Public Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/publicsans/v2/ijwGs572Xtc6ZYQws9YVwllKVG8qX1oyOymuyJ6JxAct.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Public Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/publicsans/v2/ijwGs572Xtc6ZYQws9YVwllKVG8qX1oyOymu8Z6JxAct.ttf) format('truetype');
+}

@@ -41,9 +41,9 @@ class UserResetPassword extends Notification
      */
     public function toMail($notifiable)
     {
-
+        // Move this to Mailer?
         $mailMessage = new MailMessage();
-        $mailMessage->view('Emails.Auth.Reminder', ['token' => $this->token]);
+        $mailMessage->view('Mailers.UserMailer.Reminder', ['token' => $this->token]);
 
         return ($mailMessage)
                     ->line('The introduction to the notification.')
