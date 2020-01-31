@@ -20,7 +20,7 @@
                 </div>
             @endif
             @if ($event->images->count() && $event->event_image_position == 'before')
-                <div class="col-md-8 col-md-push-2" style="margin-bottom: 20px">
+                <div class="col-md-8 col-md-push-2">
                     <div class="content event_poster">
                         <img alt="{{$event->title}}" src="{{config('attendize.cdn_url_user_assets').'/'.$event->images->first()['image_path']}}" property="image">
                     </div>

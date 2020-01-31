@@ -32,7 +32,7 @@
 
 
             .ticket {
-                border: 1px solid #913A8C !important;
+                border: 1px solid #723e73 !important;
                 background: {{$event->ticket_bg_color}} !important;
                 color: {{$event->ticket_sub_text_color}} !important;
                 border-left-color: {{$event->ticket_border_color}} !important;
@@ -55,9 +55,9 @@
         <div class="container">
             @foreach($attendees as $attendee)
                 @if(!$attendee->is_cancelled)
-                    <div class="ticket"  style="border-color: #913A8C !important; border-radius: 5px">
+                    <div class="ticket"  style="border-color: #723e73 !important; border-radius: 5px">
 
-                        <div class='logo' style="border-color: #913A8C !important; padding: 10px; border-bottom-left-radius: 5px;">
+                        <div class='logo' style="border-color: #723e73 !important; padding: 10px; border-bottom-left-radius: 5px;">
                             @if(isset($images) && count($images) > 0)
                                 @foreach($images as $img)
                                     <img src="data:image/png;base64, {{$img}}" />
@@ -99,11 +99,11 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="barcode" style="border-color: #913A8C !important; border-top-right-radius: 5px; border-bottom-right-radius: 5px">
+                        <div class="barcode" style="border-color: #723e73 !important; border-top-right-radius: 5px; border-bottom-right-radius: 5px">
                             {!! DNS2D::getBarcodeSVG($attendee->private_reference_number, "QRCODE", 6, 6) !!}
                         </div>
                         @if($event->is_1d_barcode_enabled)
-                        <div class="barcode_vertical" style="border-color: #913A8C !important;">
+                        <div class="barcode_vertical" style="border-color: #723e73 !important;">
                             {!! DNS1D::getBarcodeSVG($attendee->private_reference_number, "C39+", 1, 50) !!}
                         </div>
                         @endif

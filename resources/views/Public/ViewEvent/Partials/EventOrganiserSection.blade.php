@@ -1,7 +1,7 @@
 <section id="organiser" style="background-color: #fff; padding: 48px 0 32px 0; ">
     <div class="container">
         <div class="row">
-            <h1 class="section_head" style="color: #913A8C">
+            <h1 class="section_head" style="color: #723e73">
                 CONTACT
             </h1>
         </div>

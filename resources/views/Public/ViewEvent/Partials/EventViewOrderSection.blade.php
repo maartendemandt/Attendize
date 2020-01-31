@@ -51,10 +51,10 @@
         <div class="row">
             <div class="col-md-12 order_header">
                 <span class="massive-icon" style="margin-bottom: 36px">
-                    <i class="ico ico-checkmark-circle" style="color: #128A44"></i>
+                    <i class="ico ico-checkmark-circle" style="color: #29a05b"></i>
                 </span>
                 <h1>{{ @trans("Public_ViewEvent.thank_you_for_your_order") }}</h1>
-                <h2>
+                <h2 style="line-height: 32px; margin-top: 20px">
                     {{ @trans("Public_ViewEvent.your") }}
                     <a class="ticket_download_link"
                     href="{{ route('showOrderTickets', ['order_reference' => $order->order_reference] ).'?download=1' }}">
@@ -150,7 +150,7 @@
 
                     <div class="table-responsive table-success" style="margin-bottom: 30px; border-radius: 5px; overflow:hidden">
                         <table class="table table-hover">
-                            <thead style="background-color: #128A44;">
+                            <thead style="background-color: #29a05b;">
                                 <tr>
                                     <th style="font-size: 13px; color: #fff">
                                         @lang("Public_ViewEvent.ticket")

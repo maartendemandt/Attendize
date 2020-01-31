@@ -30,7 +30,7 @@
 
                     <h1>@lang("Installer.setup")</h1>
                     @if (count($errors) > 0)
-                    <div class="alert alert-danger">
+                    <div class="alert alert-danger" style="text-align:center">
                         <ul>
                             @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
@@ -54,11 +54,11 @@
                     @foreach($paths as $path)
 
                         @if(!File::isWritable($path))
-                            <div class="alert alert-danger">
+                            <div class="alert alert-danger" style="text-align:center">
                             {!! @trans("Installer.path_not_writable", ["path"=>$path]) !!}
                             </div>
                         @else
-                            <div class="alert alert-success">
+                            <div class="alert alert-success" style="text-align:center">
                             {!! @trans("Installer.path_writable", ["path"=> $path]) !!}
                             </div>
                         @endif
@@ -69,11 +69,11 @@
                     @foreach($requirements as $requirement)
 
                         @if(!extension_loaded($requirement))
-                            <div class="alert alert-danger">
+                            <div class="alert alert-danger" style="text-align:center">
                                 {!! @trans("Installer.requirement_not_met", ["requirement"=>$requirement]) !!}
                             </div>
                         @else
-                            <div class="alert alert-success">
+                            <div class="alert alert-success" style="text-align:center">
                                 {!! @trans("Installer.requirement_met", ["requirement"=>$requirement]) !!}
                             </div>
                         @endif

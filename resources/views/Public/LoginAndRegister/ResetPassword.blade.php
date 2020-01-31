@@ -22,7 +22,7 @@ Reset Password
                 @else
 
                 @if (count($errors) > 0)
-                <div class="alert alert-danger">
+                <div class="alert alert-danger" style="text-align:center">
                     <strong>@lang("basic.whoops")!</strong> @lang("User.reset_input_errors")<br><br>
                     <ul>
                         @foreach ($errors->all() as $error)

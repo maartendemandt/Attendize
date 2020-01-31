@@ -7,7 +7,7 @@
     <div class="container" style="padding: 32px 0">
         @if($payment_failed)
         <div class="row">
-            <div class="col-md-8 alert-danger" style="text-align: left; padding: 10px">
+            <div class="col-md-12 alert-danger" style="margin-bottom: 25px; text-align: left; padding: 10px; text-align: center">
                 @lang("Order.payment_failed")
             </div>
         </div>
