@@ -421,7 +421,7 @@ class EventCheckoutController extends Controller
 
         $ticket_order = session()->get('ticket_order_' . $event_id);
 
-        session()->push('ticket_order_' . $event_id . '.transaction_id',);
+        session()->push('ticket_order_' . $event_id . '.transaction_id');
         return $this->completeOrder($event_id, false);
 
         //$payment_gateway_factory = new PaymentGatewayFactory();
