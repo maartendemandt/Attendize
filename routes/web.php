@@ -103,19 +103,21 @@ Route::group(
         /*
          * Registration / Account creation
          */
-        Route::get('/signup',
+        /*Route::get('/signup',
             [UserSignupController::class, 'showSignup']
         )->name('showSignup');
 
         Route::post('/signup',
             [UserSignupController::class, 'postSignup']);
-
+        */
         /*
          * Confirm Email
          */
+        /*
         Route::get('signup/confirm_email/{confirmation_code}',
             [UserSignupController::class, 'confirmEmail']
         )->name('confirmEmail');
+        */
     });
 
     /*
@@ -649,7 +651,9 @@ Route::group(
         });
     });
 
-    Route::get('/',
-        [IndexController::class, 'showIndex']
+    Route::get('/', function() {
+        return redirect()->route('showEventPage', ['event_id' => 1]);
+    }
     )->name('index');
+
 });

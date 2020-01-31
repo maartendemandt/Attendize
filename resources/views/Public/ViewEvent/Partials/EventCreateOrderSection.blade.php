@@ -1,5 +1,5 @@
 <section id='order_form'  style="padding: 0; background-color: #fff;">
-    <div class="row" style="background-color:rgba(18,138,68,1); padding: 0; color: #fff">
+    <div class="row" style="background-color:#29a05b; padding: 0; color: #fff">
         <h1 class="section_head" style="text-transform:uppercase; padding: 48px 0; margin: 0">
             @lang("Public_ViewEvent.order_details")
         </h1>

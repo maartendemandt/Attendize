@@ -1,5 +1,5 @@
 <section id="tickets" style="background-color: #fff;">
-    <div class="row" style="background-color:rgba(18,138,68,1); padding: 0; color: #fff">
+    <div class="row" style="background-color:#29a05b; padding: 0; color: #fff">
         <h1 class="section_head" style="padding: 48px 0; margin: 0">
             TICKETS
         </h1>

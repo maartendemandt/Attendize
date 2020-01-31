@@ -15,7 +15,7 @@
 
     
 </section>
-<div style="width: 100%; background-color: #913A8C; padding-top: 8px; padding-bottom: 8px;">
+<div style="width: 100%; background-color: #723e73; padding-top: 8px; padding-bottom: 8px;">
     <div class="container" >
         <div class="event_buttons" style="display: flex; flex-direction: row;  justify-content: space-around;">
             <a class="btn btn-event-link btn-lg" style="flex: 1;" href="{{{$event->event_url}}}#details">INFORMATIE</a>

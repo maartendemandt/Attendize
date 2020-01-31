@@ -22,7 +22,7 @@
         </div>
     </div>
     {!! Form::token() !!}
-    <input class="btn btn-lg btn-success card-submit" id="card-submit" style="width:100%;" type="submit" value="Complete Payment">
+    <input class="btn btn-lg btn-success card-submit" id="card-submit" style="width:100%;" type="submit" value="BETALEN">
 </form>
 
 
