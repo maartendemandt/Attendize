@@ -79,5 +79,5 @@ Email: <strong>{{$order->email}}</strong><br>
 </div>
 <br>
 Hartelijk dank!<br>
-Neet te Redde
+Stichting Neet te Redde
 @stop
