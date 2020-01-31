@@ -1,28 +1,14 @@
 <form class="online_payment ajax" action="<?php echo route('postCreateOrder', ['event_id' => $event->id]); ?>" method="post">      
-    <div class="well" style="border-radius: 5px">
-        <div class="row">
-            <div class="col-sm-6 col-xs-6">
-                <p>
-                    <b>@lang("Public_ViewEvent.first_name")</b><br> 
-                    {{ $request_data['order_first_name'] }}
-                </p>
-            </div>
-            <div class="col-sm-6 col-xs-6">
-                <p>
-                    <b>@lang("Public_ViewEvent.last_name")</b><br> 
-                    {{ $request_data['order_last_name'] }}
-                </p>
-            </div>
-            <div class="col-sm-12 col-xs-12" style="margin-top: 10px;">
-                <p style="margin-bottom:0px">
-                    <b>@lang("Public_ViewEvent.email")</b><br> 
-                    {{ $request_data['order_email'] }}
-                </p>
-            </div>
-        </div>
-    </div>
+    <p>
+        Nadat je zo je 'bestelling afrond' graag het totaalbedrag van {{ money($ticket['full_price'], $event->currency) }} binnen 7 werkdagen overmaken naar de rekening:<br><br>
+
+        NL21312312312312 t.a.v. Stichting Neet te Redde <br>
+        Onder vermelding van je voor- en achternaam. <br> <br>
+
+        Na he afronden van de bestelling ontvang je direct je tickets, let wel op: deze worden pas geactiveerd nadat wij het totaalbedrag op bovenstaande rekening hebben ontvangen. <br> <br>
+    </p>
     {!! Form::token() !!}
-    <input class="btn btn-lg btn-success card-submit" id="card-submit" style="width:100%;" type="submit" value="BETALEN">
+    <input class="btn btn-lg btn-success card-submit" id="card-submit" style="width:100%;" type="submit" value="BESTELLING AFRONDEN">
 </form>
 
 

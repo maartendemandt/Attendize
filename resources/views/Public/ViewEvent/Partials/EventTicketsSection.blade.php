@@ -121,14 +121,7 @@
                                         <td colspan="3">
                                             @if(!$is_free_event)
                                                 <div class="pull-left">
-                                                    <img height="44px" class=""
-                                                        src="{{asset('ideal_logo.png')}}"/>
-                                                    @if($event->enable_offline_payments)
-
-                                                        <div class="help-block" style="font-size: 11px;">
-                                                            @lang("Public_ViewEvent.offline_payment_methods_available")
-                                                        </div>
-                                                    @endif
+                                                    
                                                 </div>
 
                                             @endif

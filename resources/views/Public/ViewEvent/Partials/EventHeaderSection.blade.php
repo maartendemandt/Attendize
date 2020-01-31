@@ -11,7 +11,7 @@
     </div>
 </section>
 @endif
-<section id="intro" style="display: flex; flex-direction: column; justify-content: space-between; padding: 0; background: url('{{ asset('vidk.jpg') }}') center center no-repeat; background-size:cover">
+<section id="intro" style="display: flex; flex-direction: column; justify-content: space-between; padding: 0; background: url('{{ asset('vidk_old.jpg') }}') center center no-repeat; background-size:cover">
 
     
 </section>

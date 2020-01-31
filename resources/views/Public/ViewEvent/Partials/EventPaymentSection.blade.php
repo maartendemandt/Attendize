@@ -17,6 +17,7 @@
                 @lang("Public_ViewEvent.below_order_details_header")
             </div>
             <div class="col-md-4 col-md-push-8">
+                
                 <div class="panel panel-success">
                     <div class="panel-heading">
                         <h3 class="panel-title">
@@ -59,6 +60,28 @@
                     </div>
                     @endif
 
+                </div>
+                <div class="well" style="border-radius: 5px">
+                    <div class="row">
+                        <div class="col-sm-12 col-xs-12">
+                            <p>
+                                <b>@lang("Public_ViewEvent.first_name")</b><br> 
+                                {{ $request_data['order_first_name'] }}
+                            </p>
+                        </div>
+                        <div class="col-sm-12 col-xs-12">
+                            <p>
+                                <b>@lang("Public_ViewEvent.last_name")</b><br> 
+                                {{ $request_data['order_last_name'] }}
+                            </p>
+                        </div>
+                        <div class="col-sm-12 col-xs-12" style="margin-top: 10px;">
+                            <p style="margin-bottom:0px">
+                                <b>@lang("Public_ViewEvent.email")</b><br> 
+                                {{ $request_data['order_email'] }}
+                            </p>
+                        </div>
+                    </div>
                 </div>
                 <div class="help-block">
                     {!! @trans("Public_ViewEvent.time", ["time"=>"<span id='countdown'></span>"]) !!}

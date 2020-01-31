@@ -1,25 +1,22 @@
 @extends('Mailers.Layouts.Master')
 
 @section('message_content')
-Hello,<br><br>
+Beste,<br><br>
 
-Your order for the event <strong>{{$order->event->title}}</strong> was successful.<br><br>
+Uw order voor het evenement <strong>{{$order->event->title}}</strong> is gelukt.<br><br>
 
-Your tickets are attached to this email. You can also view you order details and download your tickets
-at: {{route('showOrderDetails', ['order_reference' => $order->order_reference])}}
+Uw tickets zijn bijgevoegd aan deze email. U kunt uw bestelling ook bekijken via de volgende link: {{route('showOrderDetails', ['order_reference' => $order->order_reference])}}
 
-@if(!$order->is_payment_received)
+
 <br><br>
-<strong>Please note: This order still requires payment. Instructions on how to make payment can be found on your
-    order page: {{route('showOrderDetails', ['order_reference' => $order->order_reference])}}</strong>
+<strong>Let op: Uw bestelling moet nog betaald worden, voor meer informatie: {{route('showOrderDetails', ['order_reference' => $order->order_reference])}}</strong>
 <br><br>
-@endif
-<h3>Order Details</h3>
-Order Reference: <strong>{{$order->order_reference}}</strong><br>
-Order Name: <strong>{{$order->full_name}}</strong><br>
-Order Date: <strong>{{$order->created_at->format(config('attendize.default_datetime_format'))}}</strong><br>
-Order Email: <strong>{{$order->email}}</strong><br>
-<a href="{!! route('downloadCalendarIcs', ['event_id' => $order->event->id]) !!}">Add To Calendar</a>
+
+<h3>Gegevens</h3>
+Referentie: <strong>{{$order->order_reference}}</strong><br>
+Naam: <strong>{{$order->full_name}}</strong><br>
+Datum: <strong>{{$order->created_at->format(config('attendize.default_datetime_format'))}}</strong><br>
+Email: <strong>{{$order->email}}</strong><br>
 
 @if ($order->is_business)
 <h3>Business Details</h3>
@@ -32,7 +29,7 @@ Order Email: <strong>{{$order->email}}</strong><br>
 @if ($order->business_address_code) @lang("Public_ViewEvent.business_address_code"): <strong>{{$order->business_address_code}}</strong><br>@endif
 @endif
 
-<h3>Order Items</h3>
+<h3>Bestelling</h3>
 <div style="padding:10px; background: #F9F9F9; border: 1px solid #f1f1f1;">
     <table style="width:100%; margin:10px;">
         <tr>
@@ -40,16 +37,13 @@ Order Email: <strong>{{$order->email}}</strong><br>
                 <strong>Ticket</strong>
             </td>
             <td>
-                <strong>Qty.</strong>
+                <strong>Aantal</strong>
             </td>
             <td>
-                <strong>Price</strong>
+                <strong>Prijs</strong>
             </td>
             <td>
-                <strong>Fee</strong>
-            </td>
-            <td>
-                <strong>Total</strong>
+                <strong>Bedrag</strong>
             </td>
         </tr>
         @foreach($order->orderItems as $order_item)
@@ -65,13 +59,6 @@ Order Email: <strong>{{$order->email}}</strong><br>
             </td>
             <td>
                 @isFree($order_item->unit_price)
-                -
-                @else
-                {{money($order_item->unit_booking_fee, $order->event->currency)}}
-                @endif
-            </td>
-            <td>
-                @isFree($order_item->unit_price)
                 FREE
                 @else
                 {{money(($order_item->unit_price + $order_item->unit_booking_fee) * ($order_item->quantity),
@@ -81,33 +68,16 @@ Order Email: <strong>{{$order->email}}</strong><br>
         </tr>
         @endforeach
         <tr>
-            <td colspan="3"></td>
-            <td><strong>Sub Total</strong></td>
-            <td colspan="2">
-                {{$orderService->getOrderTotalWithBookingFee(true)}}
-            </td>
-        </tr>
-        @if($order->event->organiser->charge_tax == 1)
-        <tr>
-            <td colspan="3"></td>
-            <td>
-                <strong>{{$order->event->organiser->tax_name}}</strong><em>({{$order->event->organiser->tax_value}}%)</em>
-            </td>
-            <td colspan="2">
-                {{$orderService->getTaxAmount(true)}}
-            </td>
-        </tr>
-        @endif
-        <tr>
-            <td colspan="3"></td>
-            <td><strong>Total</strong></td>
-            <td colspan="2">
+            <td colspan="2"></td>
+            <td><strong>Totaal</strong></td>
+            <td colspan="1">
                 {{$orderService->getGrandTotal(true)}}
             </td>
         </tr>
     </table>
     <br><br>
 </div>
-<br><br>
-Thank you
+<br>
+Hartelijk dank!<br>
+Neet te Redde
 @stop
