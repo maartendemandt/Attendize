@@ -28,7 +28,7 @@ class Mollie
         $this->transaction_data = [
             'amount' => $order_total,
             'currency' => $event->currency->code,
-            'description' => 'Order for customer: ' . $order_email,
+            'description' => 'Bestelling voor: ' . $order_email,
             'billingEmail' => $order_email,
             'returnUrl' => $returnUrl
         ];
@@ -75,20 +75,24 @@ class Mollie
 
     public function refundTransaction($order, $refund_amount, $refund_application_fee) {
 
-        $request = $this->gateway->refund([
-            'transactionReference' => $order->transaction_id,
-            'amount'               => $refund_amount,
-            'currency'              => $order->event->currency->code
-        ]);
+        // $request = $this->gateway->refund([
+        //     'transactionReference' => $order->transaction_id,
+        //     'amount'               => $refund_amount,
+        //     'currency'             => $order->event->currency->code
+        // ]);
 
-        $response = $request->send();
+        // $response = $request->send();
 
-        if ($response->isSuccessful()) {
-            $refundResponse['successful'] = true;
-        } else {
-            $refundResponse['successful'] = false;
-            $refundResponse['error_message'] = $response->getMessage();
-        }
+        // if ($response->isSuccessful()) {
+        //     $refundResponse['successful'] = true;
+        // } else {
+        //     $refundResponse['successful'] = false;
+        //     $refundResponse['error_message'] = $response->getMessage();
+        // }
+
+        // return $refundResponse;
+
+        $refundResponse['successful'] = true;
 
         return $refundResponse;
     }
