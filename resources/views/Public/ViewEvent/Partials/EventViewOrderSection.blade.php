@@ -74,7 +74,7 @@
                     @endif
 
                     @if(!$order->is_payment_received)
-                        <h3 style="margin-top:25px
+                        <h3 style="margin-top:25px">
                             BETAAL INSTRUCTIES
                         </h3>
                     <div class="alert alert-info">
