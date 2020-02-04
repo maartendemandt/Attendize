@@ -73,6 +73,26 @@
                     </div>
                     @endif
 
+                    @if(!$order->is_payment_received)
+                        <h3 style="margin-top:25px
+                            BETAAL INSTRUCTIES
+                        </h3>
+                    <div class="alert alert-info">
+                        @lang("Public_ViewEvent.order_awaiting_payment")
+                    </div>
+                    <div class="offline_payment_instructions well">
+                        <p>
+                            Graag het totaalbedrag van {{$order->event->currency_symbol}}{{number_format($order->total_amount, 2)}} binnen 7 werkdagen overmaken naar de rekening:<br><br>
+
+                            NL21312312312312 t.a.v. Stichting Neet te Redde <br>
+                            Onder vermelding van je voor- en achternaam. <br> <br>
+                    
+                            Nadat we je betaling hebben ontvangen sturen we u een bevestiging per e-mail en activeren wij de zojuist verstuurde tickets 
+                    </p>
+                    </div>
+
+                    @endif
+
                     <div class="order_details well" style="border-radius: 5px; overflow:hidden; margin-bottom: 30px">
                         <div class="row">
                             <div class="col-sm-4 col-xs-6">
@@ -129,20 +149,6 @@
                             @endif
                         </div>
                     </div>
-
-
-                        @if(!$order->is_payment_received)
-                            <h3>
-                                @lang("Public_ViewEvent.payment_instructions")
-                            </h3>
-                        <div class="alert alert-info">
-                            @lang("Public_ViewEvent.order_awaiting_payment")
-                        </div>
-                        <div class="offline_payment_instructions well">
-                            {!! Markdown::parse($event->offline_payment_instructions) !!}
-                        </div>
-
-                        @endif
 
                     <h3 style="text-transform: uppercase">
                         @lang("Public_ViewEvent.order_items")
