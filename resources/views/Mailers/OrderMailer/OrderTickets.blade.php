@@ -3,7 +3,7 @@
 @section('message_content')
 Beste,<br><br>
 
-Uw order voor het evenement <strong>{{$order->event->title}}</strong> is gelukt.<br><br>
+Uw bestelling voor het evenement <strong>{{$order->event->title}}</strong> is gelukt.<br><br>
 
 Uw tickets zijn bijgevoegd aan deze email. U kunt uw bestelling ook bekijken via de volgende link: {{route('showOrderDetails', ['order_reference' => $order->order_reference])}}
 
