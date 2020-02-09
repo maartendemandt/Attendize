@@ -21,9 +21,7 @@ class Mollie
 
     private function createTransactionData($order_total, $order_email, $event)
     {
-        $returnUrl = route('showEventCheckoutPaymentReturn', [
-            'event_id' => $event->id,
-        ]);
+        $returnUrl = 'https://neetteredde.nl/e/'.$event->id.'/checkout/success';
 
         $this->transaction_data = [
             'amount' => $order_total,
