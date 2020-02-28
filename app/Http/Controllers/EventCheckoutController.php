@@ -36,6 +36,7 @@ class EventCheckoutController extends Controller
      * @var bool
      */
     protected $is_embedded;
+    protected $no_payment;
 
     /**
      * EventCheckoutController constructor.
@@ -47,6 +48,7 @@ class EventCheckoutController extends Controller
          * See if the checkout is being called from an embedded iframe.
          */
         $this->is_embedded = $request->get('is_embedded') == '1';
+        $this->no_payment = $request->get('no_payment') == '1';
     }
 
     /**
@@ -263,6 +265,7 @@ class EventCheckoutController extends Controller
                 'event'           => $event,
                 'secondsToExpire' => $secondsToExpire,
                 'is_embedded'     => $this->is_embedded,
+                'no_payment'     => $this->no_payment,
                 'orderService'    => $orderService
                 ];
 
@@ -337,7 +340,8 @@ class EventCheckoutController extends Controller
             'status'      => 'success',
             'redirectUrl' => route('showEventPayment', [
                     'event_id'    => $event_id,
-                    'is_embedded' => $this->is_embedded
+                    'is_embedded' => $this->is_embedded,
+                    'no_payment'     => $this->no_payment,
                 ])
         ]);
 
@@ -368,7 +372,8 @@ class EventCheckoutController extends Controller
                      'account_payment_gateway' => $account_payment_gateway,
                      'payment_gateway' => $payment_gateway,
                      'secondsToExpire' => $secondsToExpire,
-                     'payment_failed' => $payment_failed
+                     'payment_failed' => $payment_failed,
+                     'no_payment'     => $this->no_payment
         ];
 
         return view('Public.ViewEvent.EventPagePayment', $viewData);
@@ -402,6 +407,10 @@ class EventCheckoutController extends Controller
         }
 
         if (!$order_requires_payment) {
+            return $this->completeOrder($event_id);
+        }
+
+        if ($this->no_payment) {
             return $this->completeOrder($event_id);
         }
 
@@ -763,6 +772,7 @@ class EventCheckoutController extends Controller
             'event'        => $order->event,
             'tickets'      => $order->event->tickets,
             'is_embedded'  => $this->is_embedded,
+            'no_payment'  => $this->no_payment,
         ];
 
         if ($this->is_embedded) {
