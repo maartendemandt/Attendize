@@ -21,6 +21,7 @@
             </div>
         </div>
     </div>
+    {!! Form::hidden('no_payment', $no_payment) !!}
     {!! Form::token() !!}
     <input class="btn btn-lg btn-success card-submit" id="card-submit" style="width:100%;" type="submit" value="BETALEN">
 </form>
