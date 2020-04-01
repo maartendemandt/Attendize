@@ -151,7 +151,6 @@
                     @endif
 
                 {!! Form::hidden('is_embedded', $is_embedded) !!}
-                {!! Form::hidden('no_payment', $no_payment) !!}
                 {!! Form::submit(trans("Public_ViewEvent.checkout_order"), ['class' => 'btn btn-lg btn-primary card-submit', 'style' => 'width:100%;']) !!}
                 {!! Form::close() !!}
 
